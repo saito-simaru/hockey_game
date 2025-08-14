@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9073225637972702104}
   - component: {fileID: 585751939592094682}
   - component: {fileID: 3797877512912091332}
-  - component: {fileID: 6422936765808770776}
+  - component: {fileID: 7159535307083260520}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -50,6 +50,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   playerId: 0
+  holdRotateSpeed: 180
+  angleLimit: 70
+  toNegativeDuration: 0.15
+  zeroReturnStepDeg: 4
 --- !u!212 &9073225637972702104
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -159,8 +163,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &6422936765808770776
-CapsuleCollider2D:
+--- !u!61 &7159535307083260520
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -192,5 +196,15 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
   m_Size: {x: 1, y: 1}
-  m_Direction: 0
+  m_EdgeRadius: 0

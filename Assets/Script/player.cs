@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections; 
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class player : MonoBehaviour
@@ -41,166 +41,197 @@ public class player : MonoBehaviour
         rb.MovePosition(rb.position + delta);
 
         //以下回転処理
-        if (_isAnimating) return; // 戻し中は手動回転しない
 
-        int dir = 0;
-        // 同時押しは停止優先
-        if (_positiveHeld && !_negativeHeld) dir = +1;     // 左回り（+）
-        else if (_negativeHeld && !_positiveHeld) dir = -1; // 右回り（-）
+        // 戻し中は回さない
+        if (_isAnimating || _inputLocked || !_isHolding || _dir == 0) return;
 
-        if (dir != 0)
-        {
-            float z = GetSignedZ();
-            z += dir * holdRotateSpeed * Time.fixedDeltaTime;
-            z = Mathf.Clamp(z, -angleLimit, +angleLimit);
-            SetSignedZ(z);
-        }
+        float z = GetSignedZ();
+        z += _dir * holdRotateSpeed * Time.fixedDeltaTime;
+        z = Mathf.Clamp(z, -angleLimit, +angleLimit);
+        SetSignedZ(z);
+    
     }
     // Input System の "Player" Action Map と名前を合わせる
     // Input Action "Move" にバインドしたときに呼ばれる
-    void OnMove(InputValue context)
+    public void OnMove(InputAction.CallbackContext context)
     {
         Debug.Log($"Player {playerId} Move Input Received");
-        Vector2 input = context.Get<Vector2>();
+        Vector2 input = context.ReadValue<Vector2>();
         moveX = input.x;
     }
 
-    [Header("回転設定（押下中）")]
-    [Tooltip("押している間の角速度[deg/sec]")]
+
+    [Header("押している間の回転（FixedUpdate）")]
+    [Tooltip("押下中の角速度 [deg/sec]")]
     public float holdRotateSpeed = 180f;
 
-    [Tooltip("左右の最大角度[deg]（±で適用）")]
+    [Tooltip("押下中の角度上限（±で適用）[deg]")]
     public float angleLimit = 70f;
 
-    [Header("離した後の戻し設定（等速）")]
-    [Tooltip("現在角度の符号反転角まで戻す所要時間[sec]")]
+    [Header("離してからの戻し")]
+    [Tooltip("現在角度の負の値まで戻す所要時間 [sec]（等速）")]
     public float toNegativeDuration = 0.15f;
 
-    [Tooltip("その後 0° まで戻す所要時間[sec]")]
-    public float toZeroDuration = 0.20f;
+    [Tooltip("0°に戻すときの1フレームあたりの回転量 [deg/frame]")]
+    public float zeroReturnStepDeg = 4f;   // フレーム依存：毎フレーム一定値で回す
 
     // 入力状態
-    private bool _positiveHeld; // 左回り（+）
-    private bool _negativeHeld; // 右回り（-）
-    private bool _wasHeld;      // 直前フレームまで押されていたか
+    private int  _dir = 0;          // -1:右回り(時計), +1:左回り(反時計), 0:停止
+    private bool _isHolding = false;
 
-    // アニメーション中フラグ
-    private bool _isAnimating;
+    // アニメーション／入力ロック
+    private bool _isAnimating = false;     // 何らかの戻しアニメ中（回転はスクリプト制御）
+    private bool _inputLocked = false;     // 0°に戻り切るまで入力を無視
+    private Coroutine _animCo = null;
 
-// ====== InputSystem コールバック ======
-    // 例：2D Vectorや1D Axisをアクションに割り当てて呼ぶ
-    // ・Vector2なら x>0 を positive, x<0 を negative と解釈
-    // ・Axis/ボタンでも 1/0/-1 を解釈できるように対応
-    void OnFlick(InputValue context)
+    /// <summary>
+    /// 新Input System: PlayerInput(Behavior=SendMessages) から呼ばれる
+    /// Action名は "Flick" を想定
+    /// </summary>
+/// <summary>
+    /// 新Input Systemのコールバック（PlayerInput: Send Messages）
+    /// Action名 "Flick" を想定
+    /// </summary>
+    public void OnFlick(InputAction.CallbackContext ctx)
     {
-        // どの型で来ても左右がわかるように頑張って読む
-        float x = 0f;
-        // Vector2
-        // if (context.valueType == typeof(Vector2))
-        // {
-        //     Vector2 v = context.Get<Vector2>();
-        //     x = v.x;
-        // }
-        // // float（1D Axis）
-        // else if (context.valueType == typeof(float))
-        // {
-            x = context.Get<float>();
-        // }
-        // bool（ボタン）: この場合は「どちらのボタンか」でアクションを分けるのが普通ですが、
-        // 単一メソッド要求に合わせ、x=+1 側として扱います（必要なら別アクションを作成して OnFlickNegative を用意してください）
-        // else if (context.valueType == typeof(bool))
-        // {
-            // bool pressed = context.Get<bool>();
-            // x = pressed ? 1f : 0f;
-        // }
+        // 戻しシーケンス中は完全に無視
+        if (_inputLocked) return;
 
-        bool positive = x > 0.5f;
-        bool negative = x < -0.5f;
-
-        // 状態更新
-        bool hadInputBefore = _positiveHeld || _negativeHeld;
-        _positiveHeld = positive;
-        _negativeHeld = negative;
-
-        // 押下→離し の立ち下がりを検出（両方falseになった瞬間）
-        if (hadInputBefore && !(_positiveHeld || _negativeHeld))
+        // 押下中は値を読む（Axis / Vector2 / Button どれでもOK）
+        if (ctx.started || ctx.performed)
         {
-            // 押し終えたので戻しシーケンス開始
-            if (!_isAnimating)
+            float x;
+
+            x = ctx.ReadValue<float>();
+
+            int d = (x > 0.5f) ? +1 : (x < -0.5f ? -1 : 0);
+
+            if (d != 0)
             {
-                StopAllCoroutines();
-                StartCoroutine(ReturnSequence());
+                _dir = d;
+                _isHolding = true;
+
+                // 押し直しで戻し中なら中断（ただし今回はロックで入らない運用）
+                // if (_isAnimating && _animCo != null)
+                // {
+                //     StopCoroutine(_animCo);
+                //     _isAnimating = false;
+                // }
+            }
+            else
+            {
+                // Axisが0へ戻った＝離した
+                HandleRelease();
             }
         }
+        else if (ctx.canceled)
+        {
+            HandleRelease();
+        }
+    }
 
-        // 立ち上がり記録
-        _wasHeld = _positiveHeld || _negativeHeld;
+    private void HandleRelease()
+    {
+        if (!_isHolding) return;
+
+        _isHolding = false;
+        _dir = 0;
+
+        // 離した瞬間から0°に戻るまで入力を無視
+        _inputLocked = true;
+
+        if (_animCo != null) StopCoroutine(_animCo);
+        _animCo = StartCoroutine(ReturnSequence());
     }
 
 
-    // ====== 戻しシーケンス（等速） ======
+
+    // ───────── 戻しシーケンス ─────────
+    // Step1: 現在角度 -> 負角度（時間指定・等速）
+    // Step2: そこから -> 0°（毎フレーム一定角度ステップ）
     private IEnumerator ReturnSequence()
     {
         _isAnimating = true;
 
-        // Step1: 現在角度 -> その符号反転角（-current）
-        yield return RotateToAngleConstantSpeed(targetSignedDeg: -GetSignedZ(), duration: toNegativeDuration);
+        // Step1：等速（所要時間で一定角速度）
+        yield return RotateToAngleConstantSpeed(-GetSignedZ(), toNegativeDuration);
 
-        // Step2: そこから -> 0°
-        yield return RotateToAngleConstantSpeed(targetSignedDeg: 0f, duration: toZeroDuration);
+        // Step2：毎フレーム・一定角度ステップで 0° へ
+        yield return RotateStepToZeroPerFrame(zeroReturnStepDeg);
 
         _isAnimating = false;
+        _inputLocked = false; // 0°に到達したら解除
     }
 
+    /// <summary>
+    /// 指定時間で等速に目的角へ（フレーム時間に依存しない一定角速度）
+    /// </summary>
     private IEnumerator RotateToAngleConstantSpeed(float targetSignedDeg, float duration)
     {
-        // 等速で回転させる：必要角度 / 時間 = 角速度
         float start = GetSignedZ();
-        float end = Mathf.Clamp(targetSignedDeg, -180f, 180f); // 念のため正規化範囲
-        float remain = Mathf.Abs(Mathf.DeltaAngle(start, end));
-        float speed = (duration > 0f) ? (remain / duration) : float.PositiveInfinity;
+        float end   = Mathf.Clamp(targetSignedDeg, -180f, 180f);
+
+        float total = Mathf.Abs(Mathf.DeltaAngle(start, end));
+        float speed = (duration > 0f) ? (total / duration) : float.PositiveInfinity; // [deg/sec]
 
         float t = 0f;
         while (true)
         {
             float current = GetSignedZ();
-            // MoveTowardsAngleは角度差に応じて等速で近づけられる
             float next = Mathf.MoveTowardsAngle(current, end, speed * Time.deltaTime);
             SetSignedZ(next);
 
+            bool reached = Mathf.Approximately(Mathf.DeltaAngle(next, end), 0f);
             t += Time.deltaTime;
-            if (Mathf.Approximately(Mathf.DeltaAngle(next, end), 0f) || t >= duration)
-                break;
+            if (reached || t >= duration) break;
 
             yield return null;
         }
 
-        // 最終スナップ
         SetSignedZ(end);
     }
 
-    // ====== 角度ユーティリティ ======
-    // localEulerAngles.z は 0..360 表記なので、-180..180 に直す
+    /// <summary>
+    /// 0°まで、毎フレーム一定角度ステップで回転（フレーム依存）
+    /// </summary>
+    private IEnumerator RotateStepToZeroPerFrame(float stepDegPerFrame)
+    {
+        // 0以下は無効にならないよう保護
+        float step = Mathf.Max(0.0001f, Mathf.Abs(stepDegPerFrame));
+
+        while (true)
+        {
+            float z = GetSignedZ();
+            if (Mathf.Approximately(z, 0f)) break;
+
+            // 0 へ向かう符号
+            float dir = (z > 0f) ? -1f : +1f;
+
+            // 次フレーム角度（オーバーシュートなら 0° にスナップ）
+            float next = z + dir * step;
+            if (Mathf.Sign(z) != Mathf.Sign(next) || Mathf.Abs(next) < step)
+            {
+                next = 0f;
+            }
+
+            SetSignedZ(next);
+            yield return null; // 毎フレーム進める
+        }
+    }
+
+    // ───────── 角度ユーティリティ（-180..180 を扱う）─────────
     private float GetSignedZ()
     {
-        return Mathf.DeltaAngle(0f, transform.localEulerAngles.z);
+        float z = transform.localEulerAngles.z;
+        if (z > 180f) z -= 360f; // 0..360 → -180..180
+        return z;
     }
 
     private void SetSignedZ(float signedDeg)
     {
-        Vector3 e = transform.localEulerAngles;
-        e.z = Normalize360(signedDeg);
+        float z = (signedDeg % 360f + 360f) % 360f; // -∞..∞ → 0..360
+        var e = transform.localEulerAngles;
+        e.z = z;
         transform.localEulerAngles = e;
     }
-
-    private float Normalize360(float signedDeg)
-    {
-        // -180..180 を 0..360 に
-        float a = signedDeg % 360f;
-        if (a < -180f) a += 360f;
-        if (a > 180f) a -= 360f;
-        if (a < 0f) a += 360f;
-        return a;
-    }
-
 }
