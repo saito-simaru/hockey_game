@@ -1,19 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController2D : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+public class player : MonoBehaviour
 {
     [Header("Move")]
-    public float moveSpeed = 6f;
-    private Vector2 moveInput;
+    public float moveSpeed = 5f;
+    private float moveX;
     private Rigidbody2D rb;
 
-    [Header("Shooting")]
-    public GameObject bulletPrefab;
-    public Transform firePoint;
-    public float bulletSpeed = 12f;
-    public float fireCooldown = 0.25f;
-    private float lastFireTime;
 
     [Header("Identity")]
     public int playerId; // 0 or 1 で識別
@@ -37,43 +32,19 @@ public class PlayerController2D : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = moveInput * moveSpeed;
-        // 向き（発射方向）を入力方向に（入力があれば）
-        if (moveInput.sqrMagnitude > 0.01f)
-        {
-            float angle = Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg;
-            rb.MoveRotation(angle);
-        }
-    }
+        // 方向は「常にワールドX」
+        Vector2 worldDir = Vector2.right; // (1, 0) 固定。ローカル回転の影響を受けない
+        Vector2 delta = worldDir * (moveX * moveSpeed * Time.fixedDeltaTime);
 
+        // ワールド座標で安全に移動
+        rb.MovePosition(rb.position + delta);
+    }
     // Input System の "Player" Action Map と名前を合わせる
-    public void OnMove(InputValue value)
+    // Input Action "Move" にバインドしたときに呼ばれる
+    void OnMove(InputValue context)
     {
-        moveInput = value.Get<Vector2>();
-    }
-
-    public void OnFire()
-    {
-        Debug.Log($"ファイアを入力");
-        if (Time.time - lastFireTime < fireCooldown) return;
-        
-        lastFireTime = Time.time;
-
-        if (bulletPrefab != null && firePoint != null)
-        {
-            Debug.Log($"Player {playerId} fired!");
-            var go = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            var brb = go.GetComponent<Rigidbody2D>();
-            if (brb != null)
-            {
-                Vector2 dir = (Vector2)firePoint.right; // プレイヤーの右向きを前方とする
-                if (dir.sqrMagnitude < 0.01f) dir = Vector2.right;
-                brb.velocity = dir.normalized * bulletSpeed;
-            }
-
-            // 弾に「撃った側」のIDを伝える
-            var b = go.GetComponent<bullet>();
-            if (b != null) b.ownerId = playerId;
-        }
+        Debug.Log($"Player {playerId} Move Input Received");
+        Vector2 input = context.Get<Vector2>();
+        moveX = input.x;
     }
 }

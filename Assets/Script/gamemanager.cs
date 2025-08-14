@@ -45,7 +45,7 @@ public class gamemanager : MonoBehaviour
 
     void RespawnPlayers()
     {
-        var players = FindObjectsOfType<PlayerController2D>();
+        var players = FindObjectsOfType<player>();
         foreach (var p in players)
         {
             if (p.playerId == 0 && spawn0)
