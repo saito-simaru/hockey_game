@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 94791707}
   - component: {fileID: 94791706}
   m_Layer: 0
-  m_Name: Bottomwall
+  m_Name: 2Pgoal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,9 +312,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 94791704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0cc048089d40224c907c17068ff3ede, type: 3}
+  m_Script: {fileID: 11500000, guid: 05689cdfe40aa134bbe4c3789dd98874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 1354507170}
 --- !u!1 &320914842
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +328,7 @@ GameObject:
   - component: {fileID: 320914845}
   - component: {fileID: 320914844}
   m_Layer: 0
-  m_Name: Topwall
+  m_Name: 1Pgoal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -405,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0cc048089d40224c907c17068ff3ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 1354507170}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
