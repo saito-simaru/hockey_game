@@ -50,10 +50,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   playerId: 0
-  holdRotateSpeed: 180
+  driveMode: 0
+  holdRotateSpeed: 300
   angleLimit: 70
-  toNegativeDuration: 0.15
-  zeroReturnStepDeg: 4
+  toNegativeDuration: 0.1
+  zeroReturnStepDegPerFixed: 4
+  maxAngularSpeed: 720
 --- !u!212 &9073225637972702104
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -119,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: f3050d277b3afb5418da9a626bec4b5e, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -130,7 +132,87 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3237327066342936273}
+        m_TargetAssemblyTypeName: player, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2d93e80f-a539-4fba-9740-8e52c9b0ca98
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5b39bf17-29ca-4db1-9c2a-3acfa893a473
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5596a076-19e1-4189-90b0-7b812c15e133
+    m_ActionName: Player/Fire[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3237327066342936273}
+        m_TargetAssemblyTypeName: player, Assembly-CSharp
+        m_MethodName: OnFlick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c40123db-df74-4daa-b670-64bf3ed06ba5
+    m_ActionName: Player/Flick[/Keyboard/q,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0bf47b43-a8e7-472e-9a41-a3e8da48f5cf
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fccc597e-fecc-483e-81e1-23e114ca79b7
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 754b317e-03fd-4c05-a7a1-20db2841f3ae
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8290a9fb-4b38-4075-854a-f213ee11d6bc
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b9e6e2a7-2731-4a48-af65-8eb4bf560f8e
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0701c4ab-e7f9-4055-b92b-56afdd8e9519
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bcdd9e11-5a69-4426-981d-aab3ca351b0e
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e832b500-368c-41ae-b7a8-2a8a860057b7
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ed1b0fa8-e6ca-4af7-807f-3b30b4db9187
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2482e2a8-265a-40c7-ae0f-b900aefeff61
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -150,9 +232,9 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5ed5bf0fe32959247a87504e9ab3b0a8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -161,8 +243,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 2
 --- !u!61 &7159535307083260520
 BoxCollider2D:
   m_ObjectHideFlags: 0

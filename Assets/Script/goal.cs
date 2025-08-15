@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 
-public class firstPlayerGoal : MonoBehaviour
+public class goal : MonoBehaviour
 {
     public gamemanager gm;
     public GameObject ball;
@@ -24,12 +23,21 @@ public class firstPlayerGoal : MonoBehaviour
         if (other.CompareTag("ball"))
         {
             //０はP1、１はP2の得点を指す
-            gm.AddPoint(0);
+            if (gameObject.transform.position.y > 0)
+            {
+                gm.AddPoint(0);
+            }
+            else
+            {
+                gm.AddPoint(1);
+            }
+
+
             Debug.Log($"[Enter] {other.name} が {gameObject.name} のトリガーに入った。");
 
-            RespawnBall();
+            Deletemyself();
 
-            // ballscript.Deletemyself();
+            RespawnBall();
         }
     }
 
@@ -39,9 +47,9 @@ public class firstPlayerGoal : MonoBehaviour
 
         GameObject obj = Instantiate(ball, spawnpoint, ball.transform.rotation);
 
-        obj.name = "ball" + ballcount;
+        obj.name = "ball";
     }
-
+    
     public void Deletemyself()
     {
         // "ball" または "ball1" "ball2" など、部分一致で検索したい場合
