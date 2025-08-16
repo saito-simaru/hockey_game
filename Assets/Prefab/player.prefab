@@ -154,7 +154,19 @@ MonoBehaviour:
     m_ActionId: 5b39bf17-29ca-4db1-9c2a-3acfa893a473
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3999561053739201841, guid: 65f0e05e58c8f9242afedd57c77d802b, type: 3}
+        m_TargetAssemblyTypeName: gamemanager, Assembly-CSharp
+        m_MethodName: OnRestert
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 5596a076-19e1-4189-90b0-7b812c15e133
     m_ActionName: Player/Fire[/Keyboard/space]
   - m_PersistentCalls:
@@ -213,6 +225,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 2482e2a8-265a-40c7-ae0f-b900aefeff61
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 546d6ea9-3d5c-4b3b-b132-7bc3e5d3b421
+    m_ActionName: Restert/Restert[/Keyboard/r,/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

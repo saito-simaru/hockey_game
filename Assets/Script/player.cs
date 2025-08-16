@@ -3,9 +3,11 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using System;
 
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class player : MonoBehaviour
 {
+
     [Header("Move")]
     public float moveSpeed = 5f;
     private float moveX;
@@ -64,8 +66,6 @@ public class player : MonoBehaviour
 
     
     }
-
-
 
     // Input System の "Player" Action Map と名前を合わせる
     // Input Action "Move" にバインドしたときに呼ばれる

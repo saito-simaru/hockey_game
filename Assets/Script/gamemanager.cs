@@ -2,13 +2,16 @@ using UnityEngine;
 using TMPro;
 using System.Runtime.CompilerServices;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 
 public class gamemanager : MonoBehaviour
 {
     public goal goalscript;
     public int maxScore = 5;
     public int[] scores = new int[2];
-    private int spawncount = 0;
+
+    private bool isplaying = false;
     private PlayerInputManager pim;
     [Header("PlayerPrefab")]
     public GameObject PlayerPrefab;
@@ -45,10 +48,12 @@ public class gamemanager : MonoBehaviour
             // 勝利演出（簡易）
             Time.timeScale = 0f;
             winningText.gameObject.SetActive(true);
+            isplaying = false;
+            
             if (playerId == 0)
                 winningText.text = $"    Player {playerId + 1} Wins!                           Restert to R";
             else
-                winningText.text = $"      Restert to R                            Player {playerId + 1} Wins!";
+                winningText.text = $"      Restert to R                           Player {playerId + 1} Wins!";
         }
         else
         {
@@ -61,6 +66,16 @@ public class gamemanager : MonoBehaviour
         if (scoreText)
             scoreText.text = $"{scores[0]} - {scores[1]}";
     }
+
+    public void OnRestert()
+    {
+        Debug.Log("restert");
+        if (isplaying) return;
+            Time.timeScale = 1f; // ポーズ解除しておくと安全
+            var scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.buildIndex);
+    }
+
     
     public void OnPlayerJoined(PlayerInput playerInput)
     {

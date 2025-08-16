@@ -1,0 +1,73 @@
+{
+    "name": "gamemanager",
+    "maps": [
+        {
+            "name": "Restert",
+            "id": "8b6b1821-6b2c-4a92-b096-31bda3d0acb3",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "20adf2c2-350c-48a6-a3c4-901d9c6e7d43",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c3c11dc6-9851-457b-b924-6264d6617270",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0664bf4a-21ff-4ad0-8dce-eb6545e41224",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "New action map1",
+            "id": "9b8bd246-c0f0-436f-a00e-facabdf4be74",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "944bae13-ec90-4305-a406-9aa6cdb7de3f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ff4fe8fe-ac03-46a3-a18f-2320d9993399",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
