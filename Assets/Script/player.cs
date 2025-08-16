@@ -10,6 +10,7 @@ public class player : MonoBehaviour
     public float moveSpeed = 5f;
     private float moveX;
     private Rigidbody2D rb;
+    Vector2 worldDir; // (1, 0) 固定。ローカル回転の影響を受けない
 
 
     [Header("Identity")]
@@ -32,6 +33,8 @@ public class player : MonoBehaviour
         //0度の時は物理エンジンによる回転を無効化
         rb.freezeRotation = true;
 
+        // 移動方向は「常にワールドX」だが、プレイヤーIDによって変更
+        worldDir = (playerId == 0) ? Vector2.right : -Vector2.right; // P1なら(1, 0)それ以外は(-1,0) 。ローカル回転の影響を受けない
         // 色分け（簡易）
         var sr = GetComponent<SpriteRenderer>();
         if (sr != null) sr.color = (playerId == 0) ? new Color(0.2f, 0.7f, 1f) : new Color(1f, 0.4f, 0.4f);
@@ -39,8 +42,7 @@ public class player : MonoBehaviour
 
     void FixedUpdate()
     {
-        // 方向は「常にワールドX」
-        Vector2 worldDir = Vector2.right; // (1, 0) 固定。ローカル回転の影響を受けない
+        
         Vector2 delta = worldDir * (moveX * moveSpeed * Time.fixedDeltaTime);
 
         // ワールド座標で安全に移動 移動範囲を-2から2に指定
