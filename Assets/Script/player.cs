@@ -7,6 +7,7 @@ using System;
 [RequireComponent(typeof(Rigidbody2D))]
 public class player : MonoBehaviour
 {
+    public float slowFactor = 0.5f;
 
     [Header("Move")]
     public float moveSpeed = 5f;
@@ -67,11 +68,25 @@ public class player : MonoBehaviour
     
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 衝突相手が動的なオブジェクトなら減速
+        if (collision.collider.attachedRigidbody != null)
+        {
+            Rigidbody2D _rb = collision.rigidbody;
+            if (_rb != null)
+            {
+                Debug.Log("slow");
+                _rb.velocity *= slowFactor;
+            }
+        }
+    }
+
     // Input System の "Player" Action Map と名前を合わせる
     // Input Action "Move" にバインドしたときに呼ばれる
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log($"Player {playerId} Move Input Received");
+        //Debug.Log($"Player {playerId} Move Input Received");
         Vector2 input = context.ReadValue<Vector2>();
         moveX = input.x;
     }

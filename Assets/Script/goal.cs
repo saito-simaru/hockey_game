@@ -33,7 +33,7 @@ public class goal : MonoBehaviour
             }
 
 
-            Debug.Log($"[Enter] {other.name} が {gameObject.name} のトリガーに入った。");
+            //Debug.Log($"[Enter] {other.name} が {gameObject.name} のトリガーに入った。");
 
             Deletemyself();
 
@@ -60,7 +60,7 @@ public class goal : MonoBehaviour
             if (obj.name.StartsWith("ball")) // 名前が"ball"で始まるもの
             {
                 Destroy(obj); // シーン上の実体を破棄
-                Debug.Log($"{obj.name} を削除しました");
+                //Debug.Log($"{obj.name} を削除しました");
             }
         }
     }

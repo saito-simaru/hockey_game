@@ -49,11 +49,20 @@ public class gamemanager : MonoBehaviour
             Time.timeScale = 0f;
             winningText.gameObject.SetActive(true);
             isplaying = false;
-            
+
             if (playerId == 0)
+            {
+                //青色
+                winningText.color = new Color(70, 190, 255);
                 winningText.text = $"    Player {playerId + 1} Wins!                           Restert to R";
+            }
             else
+            {
+                //オレンジ色
+                winningText.color = new Color(255, 150, 20);
                 winningText.text = $"      Restert to R                           Player {playerId + 1} Wins!";
+            }
+
         }
         else
         {
@@ -69,7 +78,7 @@ public class gamemanager : MonoBehaviour
 
     public void OnRestert()
     {
-        Debug.Log("restert");
+        //Debug.Log("restert");
         if (isplaying) return;
             Time.timeScale = 1f; // ポーズ解除しておくと安全
             var scene = SceneManager.GetActiveScene();
