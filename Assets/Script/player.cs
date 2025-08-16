@@ -16,7 +16,6 @@ public class player : MonoBehaviour
     [Header("Identity")]
     public int playerId; // 0 or 1 で識別
     private PlayerInput playerInput;
-
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -46,7 +45,7 @@ public class player : MonoBehaviour
         Vector2 delta = worldDir * (moveX * moveSpeed * Time.fixedDeltaTime);
 
         // ワールド座標で安全に移動 移動範囲を-2から2に指定
-        rb.MovePosition(new Vector2(Math.Clamp(rb.position.x + delta.x, -2, 2) , rb.position.y + delta.y));
+        rb.MovePosition(new Vector2(Math.Clamp(rb.position.x + delta.x, -2.45f, 2.45f) , rb.position.y + delta.y));
 
         //以下回転処理
 

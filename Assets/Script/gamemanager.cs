@@ -15,6 +15,7 @@ public class gamemanager : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI winningText;
 
     [Header("Respawn")]
     public Transform spawn0;
@@ -29,6 +30,7 @@ public class gamemanager : MonoBehaviour
     {
         UpdateUI();
         goalscript.RespawnBall();
+        winningText.gameObject.SetActive(false);
     }
 
 
@@ -42,7 +44,11 @@ public class gamemanager : MonoBehaviour
         {
             // 勝利演出（簡易）
             Time.timeScale = 0f;
-            if (scoreText) scoreText.text = $"Player {playerId + 1} Wins!";
+            winningText.gameObject.SetActive(true);
+            if (playerId == 0)
+                winningText.text = $"    Player {playerId + 1} Wins!                           Restert to R";
+            else
+                winningText.text = $"      Restert to R                            Player {playerId + 1} Wins!";
         }
         else
         {
@@ -53,7 +59,7 @@ public class gamemanager : MonoBehaviour
     void UpdateUI()
     {
         if (scoreText)
-            scoreText.text = $"P1: {scores[0]}  -  P2: {scores[1]}";
+            scoreText.text = $"{scores[0]} - {scores[1]}";
     }
     
     public void OnPlayerJoined(PlayerInput playerInput)
