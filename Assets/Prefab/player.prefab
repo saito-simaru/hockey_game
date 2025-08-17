@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e32b26100b0d804cbdc5ab6f1b8885b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slowFactor: 0.5
+  gm: {fileID: 0}
   moveSpeed: 6
   playerId: 0
   driveMode: 0
@@ -155,10 +157,10 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3999561053739201841, guid: 65f0e05e58c8f9242afedd57c77d802b, type: 3}
-        m_TargetAssemblyTypeName: gamemanager, Assembly-CSharp
-        m_MethodName: OnRestert
-        m_Mode: 1
+      - m_Target: {fileID: 3237327066342936273}
+        m_TargetAssemblyTypeName: player, Assembly-CSharp
+        m_MethodName: OnRestart
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

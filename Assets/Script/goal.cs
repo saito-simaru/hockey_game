@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class goal : MonoBehaviour
 {
-    public gamemanager gm;
+    private gamemanager gm;
     public GameObject ball;
     private ball ballscript;
     private int ballcount = 0;
@@ -16,6 +16,8 @@ public class goal : MonoBehaviour
     void Start()
     {
         ballscript = ball.GetComponent<ball>();
+        GameObject GM = GameObject.Find("gamemanager");
+        gm = GM.GetComponent<gamemanager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

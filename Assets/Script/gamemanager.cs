@@ -11,31 +11,62 @@ public class gamemanager : MonoBehaviour
     public int maxScore = 5;
     public int[] scores = new int[2];
 
-    private bool isplaying = false;
+    private bool isplaying = true;
     private PlayerInputManager pim;
     [Header("PlayerPrefab")]
     public GameObject PlayerPrefab;
 
     [Header("UI")]
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI winningText;
+    public  TextMeshProUGUI winningText;
 
     [Header("Respawn")]
     public Transform spawn0;
     public Transform spawn1;
 
+    public static gamemanager Instance { get; private set; }
+
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        // DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         pim = GetComponent<PlayerInputManager>();
+        Debug.Log($"[GM Awake] name={name}, id={GetInstanceID()}, isplaying={isplaying}");
     }
 
     void Start()
     {
+
         UpdateUI();
         goalscript.RespawnBall();
         winningText.gameObject.SetActive(false);
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"シーンロード完了: {scene.name}");
+
+
+        // GameObject spawn0obj = GameObject.Find("spawnpos1");
+        // spawn0 = spawn0obj.transform;
+        // GameObject spawn1obj = GameObject.Find("spawnpos2");
+        // spawn1 = spawn1obj.transform;
+
+        // GameObject scoretext = GameObject.Find("score");
+        // scoreText = scoretext.GetComponent<TextMeshProUGUI>();
+        // GameObject winningtext = GameObject.Find("winningText");
+        // winningText = winningtext.GetComponent<TextMeshProUGUI>();
+
+        
+
+    }
 
     public void AddPoint(int playerId)
     {
@@ -53,13 +84,13 @@ public class gamemanager : MonoBehaviour
             if (playerId == 0)
             {
                 //青色
-                winningText.color = new Color(70, 190, 255);
+                winningText.color = new Color32(70, 190, 255, 255);
                 winningText.text = $"    Player {playerId + 1} Wins!                           Restert to R";
             }
             else
             {
                 //オレンジ色
-                winningText.color = new Color(255, 150, 20);
+                winningText.color = new Color32(255, 150, 20, 255);
                 winningText.text = $"      Restert to R                           Player {playerId + 1} Wins!";
             }
 
@@ -76,13 +107,19 @@ public class gamemanager : MonoBehaviour
             scoreText.text = $"{scores[0]} - {scores[1]}";
     }
 
-    public void OnRestert()
+    public void OnRestart()
     {
+        Debug.Log($"[GM OnRestert] name={name}, id={GetInstanceID()}, isplaying={isplaying}");
+        Debug.Log(isplaying);
         //Debug.Log("restert");
-        if (isplaying) return;
+        if (isplaying == false)
+        {
+            // Debug.Log(isplaying);
             Time.timeScale = 1f; // ポーズ解除しておくと安全
             var scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.buildIndex);
+        }
+
     }
 
     
