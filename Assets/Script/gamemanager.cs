@@ -85,13 +85,13 @@ public class gamemanager : MonoBehaviour
             {
                 //青色
                 winningText.color = new Color32(70, 190, 255, 255);
-                winningText.text = $"    Player {playerId + 1} Wins!                           Restert to R";
+                winningText.text = $"   Plyre {playerId + 1} のかち!                       リプレイ：X";
             }
             else
             {
                 //オレンジ色
                 winningText.color = new Color32(255, 150, 20, 255);
-                winningText.text = $"      Restert to R                           Player {playerId + 1} Wins!";
+                winningText.text = $"     リプレイ：X                      Player {playerId + 1} のかち!";
             }
 
         }

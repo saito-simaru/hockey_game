@@ -87,10 +87,10 @@ public class player : MonoBehaviour
         if (collision.collider.attachedRigidbody != null)
         {
             Rigidbody2D _rb = collision.rigidbody;
-            if (_rb != null)
+            if (_rb.velocity.y >= 10 || _rb.velocity.y <= -10)
             {
                 Debug.Log("slow");
-                _rb.velocity *= slowFactor;
+                _rb.velocity *= slowFactor;  
             }
         }
     }

@@ -317,7 +317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0cc048089d40224c907c17068ff3ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 1354507170}
   ball: {fileID: 6730388219076617255, guid: c1b3201c3d2e5d64dab2ae149aa6cea4, type: 3}
 --- !u!1 &260035553
 GameObject:
@@ -345,7 +344,7 @@ Transform:
   m_GameObject: {fileID: 260035553}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8927, y: 0.1027, z: -0.037571542}
+  m_LocalPosition: {x: 1.8927, y: 0.1027, z: 0}
   m_LocalScale: {x: 0.9212154, y: 0.92025733, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -493,7 +492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0cc048089d40224c907c17068ff3ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 1354507170}
   ball: {fileID: 6730388219076617255, guid: c1b3201c3d2e5d64dab2ae149aa6cea4, type: 3}
 --- !u!1 &519420028
 GameObject:
@@ -853,10 +851,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '       Plyre 1 wins                            Restert to R'
+  m_text: "    Plyre 1 \u306E\u304B\u3061                       \u30EA\u30D7\u30EC\u30A4\uFF1AX"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1e0a5dbb6c6a42b47941a2d85c88d367, type: 2}
+  m_sharedMaterial: {fileID: 1093108037179688482, guid: 1e0a5dbb6c6a42b47941a2d85c88d367, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -886,7 +884,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1370,17 +1368,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!114 &1354507170 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3999561053739201841, guid: 65f0e05e58c8f9242afedd57c77d802b, type: 3}
-  m_PrefabInstance: {fileID: 8523631393239201682}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50a7054507934084ca4a484ff90861b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1824589738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,6 +1603,10 @@ PrefabInstance:
       propertyPath: spawn1
       value: 
       objectReference: {fileID: 583673889}
+    - target: {fileID: 3999561053739201841, guid: 65f0e05e58c8f9242afedd57c77d802b, type: 3}
+      propertyPath: maxScore
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3999561053739201841, guid: 65f0e05e58c8f9242afedd57c77d802b, type: 3}
       propertyPath: scoreText
       value: 
