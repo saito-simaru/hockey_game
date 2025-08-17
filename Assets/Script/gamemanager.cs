@@ -10,7 +10,7 @@ public class gamemanager : MonoBehaviour
     public goal goalscript;
     public int maxScore = 5;
     public int[] scores = new int[2];
-
+    private Vector3 spawnpoint0 = new Vector3(-0.5f, -3.5f, 0);
     private bool isplaying = true;
     private PlayerInputManager pim;
     [Header("PlayerPrefab")]
@@ -45,7 +45,7 @@ public class gamemanager : MonoBehaviour
     {
 
         UpdateUI();
-        goalscript.RespawnBall();
+        goalscript.RespawnBall(spawnpoint0);
         winningText.gameObject.SetActive(false);
     }
 

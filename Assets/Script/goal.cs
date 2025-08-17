@@ -8,7 +8,8 @@ public class goal : MonoBehaviour
     public GameObject ball;
     private ball ballscript;
     private int ballcount = 0;
-    private Vector3 spawnpoint = new Vector3(-0.5f, -3.5f, 0);
+    private Vector3 spawnpoint0 = new Vector3(-0.5f, -3.5f, 0);
+    private Vector3 spawnpoint1 = new Vector3(0.5f, 3.5f, 0);
 
     // Start is called before the first frame update
     // Trigger に入った瞬間
@@ -24,26 +25,24 @@ public class goal : MonoBehaviour
     {
         if (other.CompareTag("ball"))
         {
+            Deletemyself();
             //０はP1、１はP2の得点を指す
             if (gameObject.transform.position.y > 0)
             {
                 gm.AddPoint(0);
+                RespawnBall(spawnpoint1);
             }
             else
             {
                 gm.AddPoint(1);
+                RespawnBall(spawnpoint0);
             }
-
-
             //Debug.Log($"[Enter] {other.name} が {gameObject.name} のトリガーに入った。");
 
-            Deletemyself();
-
-            RespawnBall();
         }
     }
 
-    public void RespawnBall()
+    public void RespawnBall(Vector3 spawnpoint)
     {
         ballcount++;
 
