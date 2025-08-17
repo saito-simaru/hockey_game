@@ -3,9 +3,15 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using System;
 
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class player : MonoBehaviour
 {
+    public float slowFactor = 0.5f;
+
+    [Header("Restert")]
+    public GameObject gm;
+
     [Header("Move")]
     public float moveSpeed = 5f;
     private float moveX;
@@ -37,6 +43,16 @@ public class player : MonoBehaviour
         // 色分け（簡易）
         var sr = GetComponent<SpriteRenderer>();
         if (sr != null) sr.color = (playerId == 0) ? new Color(0.2f, 0.7f, 1f) : new Color(1f, 0.4f, 0.4f);
+
+    }
+
+    public void OnRestart(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+
+        // ❌ 間違い: GameObject.Instance
+        // ⭕ 正しい: GameManager.Instance
+        gamemanager.Instance.OnRestart();
     }
 
     void FixedUpdate()
@@ -65,13 +81,25 @@ public class player : MonoBehaviour
     
     }
 
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 衝突相手が動的なオブジェクトなら減速
+        if (collision.collider.attachedRigidbody != null)
+        {
+            Rigidbody2D _rb = collision.rigidbody;
+            if (_rb.velocity.y >= 10 || _rb.velocity.y <= -10)
+            {
+                Debug.Log("slow");
+                _rb.velocity *= slowFactor;  
+            }
+        }
+    }
 
     // Input System の "Player" Action Map と名前を合わせる
     // Input Action "Move" にバインドしたときに呼ばれる
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log($"Player {playerId} Move Input Received");
+        //Debug.Log($"Player {playerId} Move Input Received");
         Vector2 input = context.ReadValue<Vector2>();
         moveX = input.x;
     }

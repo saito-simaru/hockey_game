@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -4.01, z: 0}
-  m_LocalScale: {x: 1.5, y: 0.18, z: 1}
+  m_LocalScale: {x: 2, y: 0.18, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e32b26100b0d804cbdc5ab6f1b8885b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slowFactor: 0.5
+  gm: {fileID: 0}
   moveSpeed: 6
   playerId: 0
   driveMode: 0
@@ -154,7 +156,19 @@ MonoBehaviour:
     m_ActionId: 5b39bf17-29ca-4db1-9c2a-3acfa893a473
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3237327066342936273}
+        m_TargetAssemblyTypeName: player, Assembly-CSharp
+        m_MethodName: OnRestart
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 5596a076-19e1-4189-90b0-7b812c15e133
     m_ActionName: Player/Fire[/Keyboard/space]
   - m_PersistentCalls:
@@ -213,6 +227,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 2482e2a8-265a-40c7-ae0f-b900aefeff61
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 546d6ea9-3d5c-4b3b-b132-7bc3e5d3b421
+    m_ActionName: Restert/Restert[/Keyboard/r,/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

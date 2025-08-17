@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class goal : MonoBehaviour
 {
-    public gamemanager gm;
+    private gamemanager gm;
     public GameObject ball;
     private ball ballscript;
     private int ballcount = 0;
@@ -16,6 +16,8 @@ public class goal : MonoBehaviour
     void Start()
     {
         ballscript = ball.GetComponent<ball>();
+        GameObject GM = GameObject.Find("gamemanager");
+        gm = GM.GetComponent<gamemanager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -33,7 +35,7 @@ public class goal : MonoBehaviour
             }
 
 
-            Debug.Log($"[Enter] {other.name} が {gameObject.name} のトリガーに入った。");
+            //Debug.Log($"[Enter] {other.name} が {gameObject.name} のトリガーに入った。");
 
             Deletemyself();
 
@@ -60,7 +62,7 @@ public class goal : MonoBehaviour
             if (obj.name.StartsWith("ball")) // 名前が"ball"で始まるもの
             {
                 Destroy(obj); // シーン上の実体を破棄
-                Debug.Log($"{obj.name} を削除しました");
+                //Debug.Log($"{obj.name} を削除しました");
             }
         }
     }

@@ -2,37 +2,71 @@ using UnityEngine;
 using TMPro;
 using System.Runtime.CompilerServices;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 
 public class gamemanager : MonoBehaviour
 {
     public goal goalscript;
     public int maxScore = 5;
     public int[] scores = new int[2];
-    private int spawncount = 0;
+
+    private bool isplaying = true;
     private PlayerInputManager pim;
     [Header("PlayerPrefab")]
     public GameObject PlayerPrefab;
 
     [Header("UI")]
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI winningText;
+    public  TextMeshProUGUI winningText;
 
     [Header("Respawn")]
     public Transform spawn0;
     public Transform spawn1;
 
+    public static gamemanager Instance { get; private set; }
+
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        // DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         pim = GetComponent<PlayerInputManager>();
+        Debug.Log($"[GM Awake] name={name}, id={GetInstanceID()}, isplaying={isplaying}");
     }
 
     void Start()
     {
+
         UpdateUI();
         goalscript.RespawnBall();
         winningText.gameObject.SetActive(false);
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"シーンロード完了: {scene.name}");
+
+
+        // GameObject spawn0obj = GameObject.Find("spawnpos1");
+        // spawn0 = spawn0obj.transform;
+        // GameObject spawn1obj = GameObject.Find("spawnpos2");
+        // spawn1 = spawn1obj.transform;
+
+        // GameObject scoretext = GameObject.Find("score");
+        // scoreText = scoretext.GetComponent<TextMeshProUGUI>();
+        // GameObject winningtext = GameObject.Find("winningText");
+        // winningText = winningtext.GetComponent<TextMeshProUGUI>();
+
+        
+
+    }
 
     public void AddPoint(int playerId)
     {
@@ -45,10 +79,21 @@ public class gamemanager : MonoBehaviour
             // 勝利演出（簡易）
             Time.timeScale = 0f;
             winningText.gameObject.SetActive(true);
+            isplaying = false;
+
             if (playerId == 0)
-                winningText.text = $"    Player {playerId + 1} Wins!                           Restert to R";
+            {
+                //青色
+                winningText.color = new Color32(70, 190, 255, 255);
+                winningText.text = $"   Plyre {playerId + 1} のかち!                       リプレイ：X";
+            }
             else
-                winningText.text = $"      Restert to R                            Player {playerId + 1} Wins!";
+            {
+                //オレンジ色
+                winningText.color = new Color32(255, 150, 20, 255);
+                winningText.text = $"     リプレイ：X                      Player {playerId + 1} のかち!";
+            }
+
         }
         else
         {
@@ -61,6 +106,22 @@ public class gamemanager : MonoBehaviour
         if (scoreText)
             scoreText.text = $"{scores[0]} - {scores[1]}";
     }
+
+    public void OnRestart()
+    {
+        Debug.Log($"[GM OnRestert] name={name}, id={GetInstanceID()}, isplaying={isplaying}");
+        Debug.Log(isplaying);
+        //Debug.Log("restert");
+        if (isplaying == false)
+        {
+            // Debug.Log(isplaying);
+            Time.timeScale = 1f; // ポーズ解除しておくと安全
+            var scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.buildIndex);
+        }
+
+    }
+
     
     public void OnPlayerJoined(PlayerInput playerInput)
     {
