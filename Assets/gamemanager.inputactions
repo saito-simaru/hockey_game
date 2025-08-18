@@ -6,9 +6,18 @@
             "id": "8b6b1821-6b2c-4a92-b096-31bda3d0acb3",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Detect",
                     "type": "Button",
                     "id": "20adf2c2-350c-48a6-a3c4-901d9c6e7d43",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Movecursor",
+                    "type": "Button",
+                    "id": "d8832404-103e-4051-81cb-0a652e7ccce0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -19,24 +28,90 @@
                 {
                     "name": "",
                     "id": "c3c11dc6-9851-457b-b924-6264d6617270",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Detect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "0664bf4a-21ff-4ad0-8dce-eb6545e41224",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Detect",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis(pad)",
+                    "id": "a380d4d2-91a8-4d5f-9ecc-548e297e5e7c",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movecursor",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "e30ebf9f-0716-4013-9325-a738c1afc8d7",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movecursor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "cc34b446-3ad2-4f00-9a9a-92f843c28877",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movecursor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis(key)",
+                    "id": "cc568f7f-62b9-490e-9b33-c478f735f590",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movecursor",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "3b99fd18-41e7-4766-9239-b97011e35418",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movecursor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "e7306056-29ac-465f-9f30-029905e67eb7",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movecursor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

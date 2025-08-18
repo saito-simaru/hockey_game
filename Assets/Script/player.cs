@@ -46,7 +46,7 @@ public class player : MonoBehaviour
 
     }
 
-    public void OnRestart(InputAction.CallbackContext ctx)
+    public void OnFire(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
 

@@ -45,7 +45,7 @@ public class gamemanager : MonoBehaviour
     {
 
         UpdateUI();
-        goalscript.RespawnBall(spawnpoint0);
+        
         winningText.gameObject.SetActive(false);
     }
 
@@ -68,6 +68,10 @@ public class gamemanager : MonoBehaviour
 
     }
 
+    public void Setmaxpoint(int maxpoint)
+    {
+        maxScore = maxpoint;
+    }
     public void AddPoint(int playerId)
     {
         if (playerId < 0 || playerId > 1) return;
@@ -95,11 +99,12 @@ public class gamemanager : MonoBehaviour
             }
 
         }
-        else
+        else if (scores[0] == maxScore - 1 || scores[1] == maxScore - 1)
         {
             // 相手をリスポーン（すぐ）
-            RespawnPlayers();
+            Debug.Log("マッチポイント");
         }
+        RespawnPlayers();
     }
     void UpdateUI()
     {
@@ -120,6 +125,7 @@ public class gamemanager : MonoBehaviour
             SceneManager.LoadScene(scene.buildIndex);
         }
 
+
     }
 
     
@@ -139,6 +145,7 @@ public class gamemanager : MonoBehaviour
             playerInput.transform.position = spawn1.position;
             playerInput.transform.rotation = spawn1.rotation;
             playerInput.name = "P2";
+            goalscript.RespawnBall(spawnpoint0);
         }
     }
 
