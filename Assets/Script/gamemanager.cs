@@ -19,6 +19,7 @@ public class gamemanager : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI scoreText;
     public  TextMeshProUGUI winningText;
+    public TextMeshProUGUI matchpointText;
     public Canvas startcanvas;
 
     [Header("Respawn")]
@@ -83,6 +84,7 @@ public class gamemanager : MonoBehaviour
             startcanvas.gameObject.SetActive(true);
             scores[0] = 0;
             scores[1] = 0;
+            matchpointText.text = null;
             winningText.gameObject.SetActive(false);
             UpdateUI();
             isplaying = true;
@@ -126,6 +128,9 @@ public class gamemanager : MonoBehaviour
         else if (scores[0] == maxScore - 1 || scores[1] == maxScore - 1)
         {
             // 相手をリスポーン（すぐ）
+            string p1 = (scores[0] == maxScore - 1) ? "P1" : null;
+            string p2 = (scores[1] == maxScore - 1) ? "P2" : null;
+            matchpointText.text = $"マッチポイント\n{p1}\n{p2}";
             Debug.Log("マッチポイント");
         }
         RespawnPlayers();
