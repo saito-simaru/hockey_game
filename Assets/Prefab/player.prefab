@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7159535307083260520}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,14 +152,10 @@ MonoBehaviour:
     m_ActionId: 2d93e80f-a539-4fba-9740-8e52c9b0ca98
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5b39bf17-29ca-4db1-9c2a-3acfa893a473
-    m_ActionName: Player/Look[/Mouse/delta]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3237327066342936273}
         m_TargetAssemblyTypeName: player, Assembly-CSharp
-        m_MethodName: OnRestart
+        m_MethodName: OnFire
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -231,6 +227,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 546d6ea9-3d5c-4b3b-b132-7bc3e5d3b421
     m_ActionName: Restert/Restert[/Keyboard/r,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3237327066342936273}
+        m_TargetAssemblyTypeName: player, Assembly-CSharp
+        m_MethodName: OnMovecursor
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 38177525-79b0-43ad-bc5c-d0486e30f32a
+    m_ActionName: Player/Movecursor[/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/up,/Keyboard/downArrow,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3237327066342936273}
+        m_TargetAssemblyTypeName: player, Assembly-CSharp
+        m_MethodName: OnDetect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e917e4d0-c6df-4f19-a5b7-cd6f1526d18e
+    m_ActionName: Player/Detect[/XInputControllerWindows/buttonWest,/Keyboard/x]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

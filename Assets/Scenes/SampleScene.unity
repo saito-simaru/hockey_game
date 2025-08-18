@@ -493,120 +493,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 6730388219076617255, guid: c1b3201c3d2e5d64dab2ae149aa6cea4, type: 3}
---- !u!1 &450026134
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 450026136}
-  - component: {fileID: 450026135}
-  - component: {fileID: 450026137}
-  m_Layer: 0
-  m_Name: UImanager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &450026135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450026134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: b85ad80f4d64c78419d35368a05566b3, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 450026137}
-        m_TargetAssemblyTypeName: UImanager, Assembly-CSharp
-        m_MethodName: OnDetect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 20adf2c2-350c-48a6-a3c4-901d9c6e7d43
-    m_ActionName: Restert/Detect[/Keyboard/x]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 450026137}
-        m_TargetAssemblyTypeName: UImanager, Assembly-CSharp
-        m_MethodName: OnMovecursor
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: d8832404-103e-4051-81cb-0a652e7ccce0
-    m_ActionName: Restert/Movecursor[/Keyboard/downArrow,/Keyboard/upArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 944bae13-ec90-4305-a406-9aa6cdb7de3f
-    m_ActionName: New action map1/New action
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Restert
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!4 &450026136
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450026134}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1720177, y: -0.23062283, z: 0.048972577}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &450026137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450026134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c736164d08e11af4a9c7d9ee7bad97e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoretext: {fileID: 1206187554}
-  maxpoint: 5
-  gamemanager: {fileID: 8523631393239201683}
 --- !u!1 &503348470
 GameObject:
   m_ObjectHideFlags: 0
@@ -2502,6 +2388,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3390780295439360484, guid: 65f0e05e58c8f9242afedd57c77d802b, type: 3}
+      propertyPath: scoretext
+      value: 
+      objectReference: {fileID: 1206187554}
+    - target: {fileID: 3390780295439360484, guid: 65f0e05e58c8f9242afedd57c77d802b, type: 3}
+      propertyPath: gamemanager
+      value: 
+      objectReference: {fileID: 8523631393239201683}
     - target: {fileID: 3999561053739201841, guid: 65f0e05e58c8f9242afedd57c77d802b, type: 3}
       propertyPath: spawn0
       value: 
@@ -2522,6 +2416,10 @@ PrefabInstance:
       propertyPath: goalscript
       value: 
       objectReference: {fileID: 94791707}
+    - target: {fileID: 3999561053739201841, guid: 65f0e05e58c8f9242afedd57c77d802b, type: 3}
+      propertyPath: startcanvas
+      value: 
+      objectReference: {fileID: 503348473}
     - target: {fileID: 3999561053739201841, guid: 65f0e05e58c8f9242afedd57c77d802b, type: 3}
       propertyPath: winningText
       value: 
@@ -2557,4 +2455,3 @@ SceneRoots:
   - {fileID: 1889211147}
   - {fileID: 2087150273}
   - {fileID: 503348474}
-  - {fileID: 450026136}

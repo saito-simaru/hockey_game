@@ -15,7 +15,7 @@ public class ball : MonoBehaviour
     {
         while(true)
         {
-            Debug.Log(rb.velocity);
+            //Debug.Log(rb.velocity);
             yield return new WaitForSeconds(0.1f); // 0.5秒待つ
         }
 

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3082874231965756523}
+  - component: {fileID: 3390780295439360484}
   - component: {fileID: 3999561053739201841}
   - component: {fileID: 1708084083673515653}
   m_Layer: 0
@@ -33,6 +34,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3390780295439360484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3050287107408419692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c736164d08e11af4a9c7d9ee7bad97e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoretext: {fileID: 0}
+  maxpoint: 5
+  gamemanager: {fileID: 0}
 --- !u!114 &3999561053739201841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,6 +67,7 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 8903308248193798910, guid: 128527a13dc43204ebef3f211c7c19dd, type: 3}
   scoreText: {fileID: 0}
   winningText: {fileID: 0}
+  startcanvas: {fileID: 0}
   spawn0: {fileID: 0}
   spawn1: {fileID: 0}
 --- !u!114 &1708084083673515653

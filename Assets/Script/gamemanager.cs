@@ -19,6 +19,7 @@ public class gamemanager : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI scoreText;
     public  TextMeshProUGUI winningText;
+    public Canvas startcanvas;
 
     [Header("Respawn")]
     public Transform spawn0;
@@ -43,7 +44,8 @@ public class gamemanager : MonoBehaviour
 
     void Start()
     {
-
+        Time.timeScale = 0;
+        Application.targetFrameRate = 60;
         UpdateUI();
         
         winningText.gameObject.SetActive(false);
@@ -70,7 +72,29 @@ public class gamemanager : MonoBehaviour
 
     public void Setmaxpoint(int maxpoint)
     {
-        maxScore = maxpoint;
+
+        if (isplaying == false)
+        {
+            // Debug.Log(isplaying);
+            // Time.timeScale = 1f; // ポーズ解除しておくと安全
+            // var scene = SceneManager.GetActiveScene();
+            // SceneManager.LoadScene(scene.buildIndex);
+            Debug.Log("rsetert");
+            startcanvas.gameObject.SetActive(true);
+            scores[0] = 0;
+            scores[1] = 0;
+            winningText.gameObject.SetActive(false);
+            UpdateUI();
+            isplaying = true;
+        }
+        else if (isplaying == true)
+        {
+            Debug.Log("setpoint(true)");
+            maxScore = maxpoint;
+            startcanvas.gameObject.SetActive(false);
+            Time.timeScale = 1f;
+        }
+
     }
     public void AddPoint(int playerId)
     {
@@ -114,16 +138,23 @@ public class gamemanager : MonoBehaviour
 
     public void OnRestart()
     {
-        Debug.Log($"[GM OnRestert] name={name}, id={GetInstanceID()}, isplaying={isplaying}");
-        Debug.Log(isplaying);
+        // Debug.Log($"[GM OnRestert] name={name}, id={GetInstanceID()}, isplaying={isplaying}");
+        // Debug.Log(isplaying);
         //Debug.Log("restert");
-        if (isplaying == false)
-        {
-            // Debug.Log(isplaying);
-            Time.timeScale = 1f; // ポーズ解除しておくと安全
-            var scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.buildIndex);
-        }
+        // if (isplaying == false)
+        // {
+        //     // Debug.Log(isplaying);
+        //     // Time.timeScale = 1f; // ポーズ解除しておくと安全
+        //     // var scene = SceneManager.GetActiveScene();
+        //     // SceneManager.LoadScene(scene.buildIndex);
+        //     Debug.Log("rsetert");
+        //     startcanvas.gameObject.SetActive(true);
+        //     scores[0] = 0;
+        //     scores[1] = 0;
+        //     winningText.gameObject.SetActive(false);
+        //     UpdateUI();
+            
+        // }
 
 
     }
@@ -131,6 +162,13 @@ public class gamemanager : MonoBehaviour
     
     public void OnPlayerJoined(PlayerInput playerInput)
     {
+        // タグが "Player" でなければ無視（gamemanagerなど）
+        if (!playerInput.CompareTag("player"))
+        {
+            Debug.Log($"非プレイヤーのPlayerInputを無視: {playerInput.name}");
+            return;
+        }
+
         Debug.Log($"Player Joined: {playerInput.playerIndex + 1}");
 
         // 生成位置を調整（例：プレイヤー番号で左右に配置）

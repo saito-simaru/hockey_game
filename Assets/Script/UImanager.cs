@@ -10,6 +10,12 @@ public class UImanager : MonoBehaviour
     public TextMeshProUGUI scoretext;
     public int maxpoint = 5;
     public gamemanager gamemanager;
+    public static UImanager Instance { get; private set; }
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {

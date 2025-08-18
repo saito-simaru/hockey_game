@@ -52,8 +52,25 @@ public class player : MonoBehaviour
 
         // ❌ 間違い: GameObject.Instance
         // ⭕ 正しい: GameManager.Instance
+        Debug.Log("fire");
         gamemanager.Instance.OnRestart();
     }
+
+    public void OnMovecursor(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        Debug.Log("movecursor");
+        UImanager.Instance.OnMovecursor(ctx);
+    }
+
+    public void OnDetect(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        Debug.Log("detect");
+        UImanager.Instance.OnDetect();
+    }
+
+
 
     void FixedUpdate()
     {
