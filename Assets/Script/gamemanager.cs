@@ -48,8 +48,9 @@ public class gamemanager : MonoBehaviour
         Time.timeScale = 0;
         Application.targetFrameRate = 60;
         UpdateUI();
-        
+
         winningText.gameObject.SetActive(false);
+        AudioManager.I.StopBGM(0.6f);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -88,6 +89,7 @@ public class gamemanager : MonoBehaviour
             winningText.gameObject.SetActive(false);
             UpdateUI();
             isplaying = true;
+            AudioManager.I.StopBGM(0.6f);
         }
         else if (isplaying == true)
         {
@@ -95,6 +97,7 @@ public class gamemanager : MonoBehaviour
             maxScore = maxpoint;
             startcanvas.gameObject.SetActive(false);
             Time.timeScale = 1f;
+            AudioManager.I.PlayBGM(SoundKey.BgmMain,0.6f);
         }
 
     }

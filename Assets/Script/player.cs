@@ -66,6 +66,7 @@ public class player : MonoBehaviour
     public void OnDetect(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
+        AudioManager.I.PlaySFX(SoundKey.UiClick);
         Debug.Log("detect");
         UImanager.Instance.OnDetect();
     }
@@ -78,7 +79,7 @@ public class player : MonoBehaviour
         Vector2 delta = worldDir * (moveX * moveSpeed * Time.fixedDeltaTime);
 
         // ワールド座標で安全に移動 移動範囲を-2から2に指定
-        rb.MovePosition(new Vector2(Math.Clamp(rb.position.x + delta.x, -2.45f, 2.45f) , rb.position.y + delta.y));
+        rb.MovePosition(new Vector2(Math.Clamp(rb.position.x + delta.x, -2.15f, 2.15f) , rb.position.y + delta.y));
 
         //以下回転処理
 
@@ -103,6 +104,7 @@ public class player : MonoBehaviour
         // 衝突相手が動的なオブジェクトなら減速
         if (collision.collider.attachedRigidbody != null)
         {
+            AudioManager.I.PlaySFX(SoundKey.PuckHit);
             Rigidbody2D _rb = collision.rigidbody;
             if (_rb.velocity.y >= 10 || _rb.velocity.y <= -10)
             {
