@@ -3,6 +3,7 @@ using TMPro;
 using System.Runtime.CompilerServices;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 
 public class gamemanager : MonoBehaviour
@@ -12,6 +13,7 @@ public class gamemanager : MonoBehaviour
     public int[] scores = new int[2];
     private Vector3 spawnpoint0 = new Vector3(-0.5f, -3.5f, 0);
     private bool isplaying = true;
+    private bool ismatchpoint = false;
     private PlayerInputManager pim;
     [Header("PlayerPrefab")]
     public GameObject PlayerPrefab;
@@ -94,6 +96,7 @@ public class gamemanager : MonoBehaviour
             Time.timeScale = 0f;
             winningText.gameObject.SetActive(true);
             isplaying = false;
+            ismatchpoint = false;
 
             if (playerId == 0)
             {
@@ -109,18 +112,24 @@ public class gamemanager : MonoBehaviour
             }
             AudioManager.I.PlaySFX(SoundKey.VictoryCheer);
             AudioManager.I.StopBGM(1f);
-            AudioManager.I.PlayBGM(SoundKey.BgmGame,3f);
-            return;
+            AudioManager.I.PlayBGM(SoundKey.BgmGame, 3f);
         }
         else if (scores[0] == maxScore - 1 || scores[1] == maxScore - 1)
         {
-            AudioManager.I.StopBGM(1f);
+            
             // 相手をリスポーン（すぐ）
             string p1 = (scores[0] == maxScore - 1) ? "P1" : null;
             string p2 = (scores[1] == maxScore - 1) ? "P2" : null;
             matchpointText.text = $"マッチポイント\n{p1}\n{p2}";
+
             Debug.Log("マッチポイント");
-            AudioManager.I.PlayBGM(SoundKey.BgmMain,1f);
+            if (ismatchpoint == false)
+            {
+                AudioManager.I.StopBGM(1f);
+                AudioManager.I.PlayBGM(SoundKey.BgmMain, 1f);
+                ismatchpoint = true;
+            }
+
         }
         Debug.Log("ここ呼ばれました");
         AudioManager.I.PlaySFX(SoundKey.Goal);

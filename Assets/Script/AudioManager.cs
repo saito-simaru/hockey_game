@@ -66,8 +66,14 @@ public class AudioManager : MonoBehaviour {
         StartCoroutine(PlayAndRecycle(src, key));
         _lastPlayed[key] = Time.unscaledTime;
     }
+void Update() {
+    if (Time.frameCount % 60 == 0) { // 60フレームごとに
+        Debug.Log($"[AudioManager] SFXプール残数: {_pool.Count}");
+    }
+}
 
-    public void PlayBGM(SoundKey key, float fadeSec = 0.5f) {
+    public void PlayBGM(SoundKey key, float fadeSec = 0.5f)
+    {
         var se = library.Get(key);
         if (se == null || se.clip == null) return;
 

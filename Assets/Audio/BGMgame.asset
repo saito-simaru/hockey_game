@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e261a13abb6f38648bba0cf644ff0fc1, type: 3}
   m_Name: BGMgame
   m_EditorClassIdentifier: 
-  key: 0
-  clip: {fileID: 0}
-  output: {fileID: 0}
-  volume: 1
+  key: 6
+  clip: {fileID: 8300000, guid: 2734ba45c56c62a49a4a3237e9258d87, type: 3}
+  output: {fileID: 24300002, guid: 6b3b436e1005d43408368a8e428e3286, type: 2}
+  volume: 0.336
   pitch: 1
-  loop: 0
+  loop: 1
   cooldownSec: 0
   maxSimultaneous: 4
   spatialize2D: 0
