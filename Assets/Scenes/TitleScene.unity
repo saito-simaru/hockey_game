@@ -367,7 +367,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30B9\u30BF\u30FC\u30C8\uFF1AA"
+  m_text: "\u30B9\u30BF\u30FC\u30C8\uFF1AX"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1e0a5dbb6c6a42b47941a2d85c88d367, type: 2}
   m_sharedMaterial: {fileID: 1093108037179688482, guid: 1e0a5dbb6c6a42b47941a2d85c88d367, type: 2}
@@ -668,6 +668,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 944bae13-ec90-4305-a406-9aa6cdb7de3f
     m_ActionName: New action map1/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d8832404-103e-4051-81cb-0a652e7ccce0
+    m_ActionName: Restert/Movecursor[/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/up,/Keyboard/downArrow,/Keyboard/upArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Restert

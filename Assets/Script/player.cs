@@ -46,16 +46,6 @@ public class player : MonoBehaviour
 
     }
 
-    public void OnFire(InputAction.CallbackContext ctx)
-    {
-        if (!ctx.performed) return;
-
-        // ❌ 間違い: GameObject.Instance
-        // ⭕ 正しい: GameManager.Instance
-        Debug.Log("fire");
-        gamemanager.Instance.OnRestart();
-    }
-
     public void OnMovecursor(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
@@ -69,6 +59,12 @@ public class player : MonoBehaviour
         AudioManager.I.PlaySFX(SoundKey.UiClick);
         Debug.Log("detect");
         UImanager.Instance.OnDetect();
+    }
+    public void OnExit(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        Debug.Log("Exit");
+        gamemanager.Instance.OnExit();
     }
 
 

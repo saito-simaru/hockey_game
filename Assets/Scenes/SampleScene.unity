@@ -2214,8 +2214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   library: {fileID: 11400000, guid: 905cf3637ac085a48a50101f57cb64bd, type: 2}
-  sfxPoolSize: 16
-  sfxRoot: {fileID: 0}
+  sfxPoolSize: 6
+  sfxRoot: {fileID: 1499643566}
   bgmSource: {fileID: 1499643564}
 --- !u!4 &1499643566
 Transform:
