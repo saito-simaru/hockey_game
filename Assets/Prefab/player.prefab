@@ -152,19 +152,7 @@ MonoBehaviour:
     m_ActionId: 2d93e80f-a539-4fba-9740-8e52c9b0ca98
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3237327066342936273}
-        m_TargetAssemblyTypeName: player, Assembly-CSharp
-        m_MethodName: OnFire
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 5596a076-19e1-4189-90b0-7b812c15e133
     m_ActionName: Player/Fire[/Keyboard/space]
   - m_PersistentCalls:
@@ -259,6 +247,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e917e4d0-c6df-4f19-a5b7-cd6f1526d18e
     m_ActionName: Player/Detect[/XInputControllerWindows/buttonWest,/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3237327066342936273}
+        m_TargetAssemblyTypeName: player, Assembly-CSharp
+        m_MethodName: OnExit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: db22dcd1-883b-4d02-8327-a933bb074ae9
+    m_ActionName: Player/Exit[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
