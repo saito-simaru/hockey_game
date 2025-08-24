@@ -56,7 +56,7 @@ public class player : MonoBehaviour
     public void OnDetect(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
-        AudioManager.I.PlaySFX(SoundKey.UiClick);
+        
         Debug.Log("detect");
         UImanager.Instance.OnDetect(playerId);
     }

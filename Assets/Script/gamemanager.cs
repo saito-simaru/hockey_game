@@ -65,6 +65,7 @@ public class gamemanager : MonoBehaviour
 
     public void Setmaxpoint(int maxpoint, int playerID)
     {
+        
         if (isStandby == true)
         {
             isReadys[playerID] = true;
@@ -83,10 +84,10 @@ public class gamemanager : MonoBehaviour
 
                 ReadyUI.gameObject.SetActive(false);
                 //スタートはボールの生成場所をランダム
-                StartCoroutine(ballreset(Random.Range(0, 2)));          
+                StartCoroutine(ballreset(Random.Range(0, 2)));
             }
 
-
+            AudioManager.I.PlaySFX(SoundKey.UiClick);
 
         }
 
@@ -103,7 +104,7 @@ public class gamemanager : MonoBehaviour
             isplaying = true;
             isStandby = true;
 
-
+            AudioManager.I.PlaySFX(SoundKey.UiClick);
         }
         else if (isplaying == true && isStandby == true)
         {
@@ -113,6 +114,8 @@ public class gamemanager : MonoBehaviour
             startcanvas.gameObject.SetActive(false);
             Time.timeScale = 1f;
             ReadyUI.gameObject.SetActive(true);
+
+            AudioManager.I.PlaySFX(SoundKey.UiClick);
         }
 
     }
