@@ -4,7 +4,8 @@ using System.Runtime.CompilerServices;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
-
+using System.Collections;
+using System.Collections.Generic;
 
 public class gamemanager : MonoBehaviour
 {
@@ -12,8 +13,11 @@ public class gamemanager : MonoBehaviour
     public int maxScore = 5;
     public int[] scores = new int[2];
     private Vector3 spawnpoint0 = new Vector3(-0.5f, -3.5f, 0);
+    private Vector3 spawnpoint1 = new Vector3(0.5f, 3.5f, 0);
     private bool isplaying = true;
     private bool ismatchpoint = false;
+    private bool isStandby = true;
+    private bool[] isReadys = new bool[2] {false,false};
     private PlayerInputManager pim;
     [Header("PlayerPrefab")]
     public GameObject PlayerPrefab;
@@ -22,6 +26,8 @@ public class gamemanager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public  TextMeshProUGUI winningText;
     public TextMeshProUGUI matchpointText;
+    public GameObject ReadyUI;
+    private TextMeshProUGUI[] Readytext = new TextMeshProUGUI[2];
     public Canvas startcanvas;
 
     [Header("Respawn")]
@@ -42,6 +48,7 @@ public class gamemanager : MonoBehaviour
         // SceneManager.sceneLoaded += OnSceneLoaded;
 
         pim = GetComponent<PlayerInputManager>();
+        Readytext = ReadyUI.GetComponentsInChildren<TextMeshProUGUI>();
         Debug.Log($"[GM Awake] name={name}, id={GetInstanceID()}, isplaying={isplaying}");
     }
 
@@ -52,18 +59,39 @@ public class gamemanager : MonoBehaviour
         UpdateUI();
 
         winningText.gameObject.SetActive(false);
+        ReadyUI.SetActive(false);
         AudioManager.I.PlayBGM(SoundKey.BgmGame,1f);
     }
 
-    public void Setmaxpoint(int maxpoint)
+    public void Setmaxpoint(int maxpoint, int playerID)
     {
+        if (isStandby == true)
+        {
+            isReadys[playerID] = true;
+            Readytext[playerID].text = "OK!";
+            Readytext[playerID].fontSize = 65;
+            if (isReadys[0] == true && isReadys[1] == true)
+            {
+                isStandby = false;
+                isReadys[0] = false;
+                isReadys[1] = false;
+
+                Readytext[0].text = "1Pさん\nXを押してください";
+                Readytext[1].text = "2Pさん\nXを押してください";
+
+                ReadyUI.SetActive(false);
+                //スタートはボールの生成場所をランダム
+                ballreset(Random.Range(0, 2));
+                
+            }
+
+
+
+        }
 
         if (isplaying == false)
         {
-            // Debug.Log(isplaying);
-            // Time.timeScale = 1f; // ポーズ解除しておくと安全
-            // var scene = SceneManager.GetActiveScene();
-            // SceneManager.LoadScene(scene.buildIndex);
+            //得点選択画面を表示
             Debug.Log("rsetert");
             startcanvas.gameObject.SetActive(true);
             scores[0] = 0;
@@ -73,22 +101,41 @@ public class gamemanager : MonoBehaviour
             UpdateUI();
             isplaying = true;
 
+
         }
         else if (isplaying == true)
         {
+            //ゲーム開始
             Debug.Log("setpoint(true)");
             maxScore = maxpoint;
             startcanvas.gameObject.SetActive(false);
             Time.timeScale = 1f;
-            
+            isStandby = true;
+            ReadyUI.SetActive(true);
         }
 
     }
+
+    private IEnumerator ballreset(int playerID)
+    {
+        Vector3 spawnpoint = (playerID == 0) ? spawnpoint0 : spawnpoint1;
+
+        yield return new WaitForSeconds(2f); // 2秒待機
+
+        goalscript.RespawnBall(spawnpoint);
+    }
+
     public void AddPoint(int playerId)
     {
         if (playerId < 0 || playerId > 1) return;
         scores[playerId]++;
         UpdateUI();
+
+        AudioManager.I.PlaySFX(SoundKey.Goal);
+        AudioManager.I.PlaySFX(SoundKey.CrowdCheer);
+        RespawnPlayers();
+
+        StartCoroutine(ballreset(playerId));
 
         if (scores[playerId] >= maxScore)
         {
@@ -116,7 +163,7 @@ public class gamemanager : MonoBehaviour
         }
         else if (scores[0] == maxScore - 1 || scores[1] == maxScore - 1)
         {
-            
+
             // 相手をリスポーン（すぐ）
             string p1 = (scores[0] == maxScore - 1) ? "P1" : null;
             string p2 = (scores[1] == maxScore - 1) ? "P2" : null;
@@ -131,10 +178,7 @@ public class gamemanager : MonoBehaviour
             }
 
         }
-        Debug.Log("ここ呼ばれました");
-        AudioManager.I.PlaySFX(SoundKey.Goal);
-        AudioManager.I.PlaySFX(SoundKey.CrowdCheer);
-        RespawnPlayers();
+
     }
     void UpdateUI()
     {
@@ -172,7 +216,7 @@ public class gamemanager : MonoBehaviour
             playerInput.transform.position = spawn1.position;
             playerInput.transform.rotation = spawn1.rotation;
             playerInput.name = "P2";
-            goalscript.RespawnBall(spawnpoint0);
+            
         }
     }
 

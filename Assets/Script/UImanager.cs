@@ -38,8 +38,8 @@ public class UImanager : MonoBehaviour
     }
 
     //gmで管理する変数に最高点を代入
-    public void OnDetect()
+    public void OnDetect(int playerID)
     {
-        gamemanager.Setmaxpoint(maxpoint);
+        gamemanager.Setmaxpoint(maxpoint, playerID);
     }
 }

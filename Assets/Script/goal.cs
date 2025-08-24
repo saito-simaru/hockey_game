@@ -30,12 +30,12 @@ public class goal : MonoBehaviour
             if (gameObject.transform.position.y > 0)
             {
                 gm.AddPoint(0);
-                RespawnBall(spawnpoint1);
+                // RespawnBall(spawnpoint1);
             }
             else
             {
                 gm.AddPoint(1);
-                RespawnBall(spawnpoint0);
+                // RespawnBall(spawnpoint0);
             }
             //Debug.Log($"[Enter] {other.name} が {gameObject.name} のトリガーに入った。");
 
