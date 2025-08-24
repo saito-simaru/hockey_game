@@ -59,7 +59,7 @@ public class gamemanager : MonoBehaviour
         UpdateUI();
 
         winningText.gameObject.SetActive(false);
-        ReadyUI.SetActive(false);
+        ReadyUI.gameObject.SetActive(false);
         AudioManager.I.PlayBGM(SoundKey.BgmGame,1f);
     }
 
@@ -78,11 +78,12 @@ public class gamemanager : MonoBehaviour
 
                 Readytext[0].text = "1Pさん\nXを押してください";
                 Readytext[1].text = "2Pさん\nXを押してください";
+                Readytext[0].fontSize = 31;
+                Readytext[1].fontSize = 31;
 
-                ReadyUI.SetActive(false);
+                ReadyUI.gameObject.SetActive(false);
                 //スタートはボールの生成場所をランダム
-                ballreset(Random.Range(0, 2));
-                
+                StartCoroutine(ballreset(Random.Range(0, 2)));          
             }
 
 
@@ -100,25 +101,28 @@ public class gamemanager : MonoBehaviour
             winningText.gameObject.SetActive(false);
             UpdateUI();
             isplaying = true;
+            isStandby = true;
 
 
         }
-        else if (isplaying == true)
+        else if (isplaying == true && isStandby == true)
         {
             //ゲーム開始
             Debug.Log("setpoint(true)");
             maxScore = maxpoint;
             startcanvas.gameObject.SetActive(false);
             Time.timeScale = 1f;
-            isStandby = true;
-            ReadyUI.SetActive(true);
+            ReadyUI.gameObject.SetActive(true);
         }
 
     }
 
     private IEnumerator ballreset(int playerID)
     {
-        Vector3 spawnpoint = (playerID == 0) ? spawnpoint0 : spawnpoint1;
+        if (isplaying == false) yield break;
+
+        //点数を取られたプレイヤー側に出現
+        Vector3 spawnpoint = (playerID == 0) ? spawnpoint1 : spawnpoint0;
 
         yield return new WaitForSeconds(2f); // 2秒待機
 
@@ -135,7 +139,7 @@ public class gamemanager : MonoBehaviour
         AudioManager.I.PlaySFX(SoundKey.CrowdCheer);
         RespawnPlayers();
 
-        StartCoroutine(ballreset(playerId));
+
 
         if (scores[playerId] >= maxScore)
         {
@@ -178,6 +182,8 @@ public class gamemanager : MonoBehaviour
             }
 
         }
+        
+        StartCoroutine(ballreset(playerId));
 
     }
     void UpdateUI()
